@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Inter-400";
+  src: local("Inter_18pt-Regular"), url(../fonts/Inter_18pt-Regular.ttf), format("truetype");
+}
+
+@font-face {
+  font-family: "Inter-500";
+  src: local("Inter_18pt-Medium"), url(../fonts/Inter_18pt-Medium.ttf), format("truetype");
+}
+
+@font-face {
+  font-family: "Inter-600";
+  src: local("Inter_18pt-SemiBold"), url(../fonts/Inter_18pt-SemiBold.ttf), format("truetype");
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

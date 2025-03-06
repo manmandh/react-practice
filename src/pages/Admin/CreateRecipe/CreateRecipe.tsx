@@ -127,13 +127,13 @@ export default function CreateRecipePage() {
       </div>
       <form onSubmit={handleSubmit(handleSubmitForm)} className='flex flex-col gap-6'>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='name' className='select-none'>
+          <label htmlFor='name' className='select-none text-white'>
             Name
           </label>
           <input
             type='text'
             autoFocus
-            className='py-[16px] px-[24px] border rounded-lg outline-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none text-primary'
             placeholder="Enter recipe's name"
             defaultValue={'Name'}
             id='name'
@@ -147,7 +147,7 @@ export default function CreateRecipePage() {
           </label>
           <input
             type='number'
-            className='py-[16px] px-[24px] border rounded-lg outline-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none text-primary'
             placeholder='Enter a number (minute)'
             id='prepare-time'
             defaultValue={900}
@@ -156,12 +156,12 @@ export default function CreateRecipePage() {
           <p className='text-red-500 text-xs'>{errors.prepareTime?.message}</p>
         </div>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='cook-time' className='select-none'>
+          <label htmlFor='cook-time' className='select-none text-white'>
             Cook Time
           </label>
           <input
             type='number'
-            className='py-[16px] px-[24px] border rounded-lg outline-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none text-primary'
             placeholder='Enter a number (minute)'
             id='cook-time'
             defaultValue={900}
@@ -170,12 +170,12 @@ export default function CreateRecipePage() {
           <p className='text-red-500 text-xs'>{errors.cookTime?.message}</p>
         </div>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='type' className='select-none'>
+          <label htmlFor='type' className='select-none text-white'>
             Type
           </label>
           <input
             type='text'
-            className='py-[16px] px-[24px] border rounded-lg outline-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none text-primary'
             placeholder='Enter type name'
             id='type'
             defaultValue={'chicken'}
@@ -184,11 +184,11 @@ export default function CreateRecipePage() {
           <p className='text-red-500 text-xs'>{errors.recipeType?.message}</p>
         </div>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='desc' className='select-none'>
+          <label htmlFor='desc' className='select-none text-white'>
             Description
           </label>
           <textarea
-            className='py-[16px] px-[24px] border rounded-lg outline-none h-[5lh] resize-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none h-[5lh] resize-none text-primary'
             placeholder='Enter a description'
             id='desc'
             defaultValue={'Desc'}
@@ -197,12 +197,12 @@ export default function CreateRecipePage() {
           <p className='text-red-500 text-xs'>{errors.desc?.message}</p>
         </div>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='preview-image' className='select-none'>
+          <label htmlFor='preview-image' className='select-none text-white'>
             Preview Image URL
           </label>
           <input
             type='text'
-            className='py-[16px] px-[24px] border rounded-lg outline-none'
+            className='py-[16px] px-[24px] border rounded-lg outline-none text-primary'
             placeholder='Enter image URL'
             id='preview-image'
             defaultValue={
@@ -213,13 +213,13 @@ export default function CreateRecipePage() {
           <p className='text-red-500 text-xs'>{errors.preview?.message}</p>
         </div>
         <div className='flex flex-col gap-3'>
-          <label htmlFor='nutrition' className='select-none'>
+          <label htmlFor='nutrition' className='select-none text-white'>
             Nutrition Information
           </label>
           <div className='flex flex-wrap gap-4'>
             <input
               type='number'
-              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px]'
+              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px] text-primary'
               placeholder='Enter Calories (kcal)'
               id='nutrition'
               defaultValue={12}
@@ -227,7 +227,7 @@ export default function CreateRecipePage() {
             />
             <input
               type='number'
-              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px]'
+              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px] text-primary'
               placeholder='Enter total fat (g)'
               id='nutrition'
               defaultValue={12}
@@ -235,7 +235,7 @@ export default function CreateRecipePage() {
             />
             <input
               type='number'
-              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px]'
+              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px] text-primary'
               placeholder='Enter protein (g)'
               id='nutrition'
               defaultValue={12}
@@ -243,7 +243,7 @@ export default function CreateRecipePage() {
             />
             <input
               type='number'
-              className='py-[16px] px-[24px] border roundedname-lg outline-none flex-1 basis-[200px]'
+              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px] text-primary'
               placeholder='Enter carbohydrate (g)'
               id='nutrition'
               defaultValue={12}
@@ -251,7 +251,7 @@ export default function CreateRecipePage() {
             />
             <input
               type='number'
-              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px]'
+              className='py-[16px] px-[24px] border rounded-lg outline-none flex-1 basis-[200px] text-primary'
               placeholder='Enter cholesterol (mg)'
               id='nutrition'
               defaultValue={12}

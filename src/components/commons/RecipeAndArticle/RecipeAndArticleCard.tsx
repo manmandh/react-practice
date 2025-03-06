@@ -2,14 +2,17 @@ import { memo } from 'react'
 import { IRecipe } from '~/commons/interfaces/IRecipe'
 import { API_URL } from '~/utils'
 import avtUser from '~/assets/icons/craig_love.svg'
+import { useNavigate } from 'react-router-dom'
 
 interface RecipeAndArticleCardProps {
   recipe: IRecipe
 }
 
 export const RecipeAndArticleCard = memo(({ recipe }: RecipeAndArticleCardProps) => {
+  const navigate = useNavigate()
+
   return (
-    <div className='flex items-center gap-4'>
+    <div onClick={() => navigate(`/recipe-details/${recipe.recipeId}`)} className='flex items-center gap-4'>
       <img
         className='w-[360px] h-[250px] object-cover rounded-[20px]'
         src={recipe.preview.startsWith('https') ? recipe.preview : API_URL + recipe.preview}

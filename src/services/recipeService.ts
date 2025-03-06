@@ -43,15 +43,18 @@ export const getAllRecipes = async (): Promise<SuccessResponse<IRecipe[]> | Erro
 }
 
 export const getAllRecipesWithPagination = async ({
+  search,
   _limit = 5,
   _page = 1
 }: {
+  search: string
   _page?: number
   _limit?: number
 }): Promise<SuccessResponseWithPagination<IRecipe[]> | ErrorResponse> => {
   try {
-    const response = await axiosInstance.get(`/recipes?_limit=${_limit}&_page=${_page}`)
-    return new SuccessResponseWithPagination('Successfully', response.data.data, response.data._pagination)
+    const response = await axiosInstance.get(`/recipes?_limit=${_limit}&_page=${_page}&recipeName_like=${search}`)
+    console.log(response.data)
+    return new SuccessResponseWithPagination('Successfully', response.data.data, response.data.pagination)
   } catch (error) {
     return new ErrorResponse(String(error))
   }
@@ -103,6 +106,17 @@ export const updateRecipeById = async (
 ): Promise<SuccessResponse<IRecipe> | ErrorResponse> => {
   try {
     const response = await axiosInstance.patch(`/recipes/${recipeId}`, updatedRecipe)
+    return new SuccessResponse('Recipe was updated', response.data[0])
+  } catch (error) {
+    console.log(error)
+    return new ErrorResponse(String(error))
+  }
+}
+
+export const searchRecipes = async (search: string): Promise<SuccessResponse<IRecipe[]> | ErrorResponse> => {
+  try {
+    const response = await axiosInstance.get(`/recipes?q=${search}`)
+    console.log(response.data)
     return new SuccessResponse('Recipe was updated', response.data[0])
   } catch (error) {
     console.log(error)

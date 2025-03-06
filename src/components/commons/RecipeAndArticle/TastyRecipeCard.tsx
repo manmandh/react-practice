@@ -11,7 +11,7 @@ export const TastyRecipeCard = memo(({ recipe }: TastyRecipeCardProps) => {
     <div className='flex items-center gap-4 mb-4'>
       <img
         src={recipe.preview.startsWith('https') ? recipe.preview : API_URL + recipe.preview}
-        className='w-[180px] h-[180px]'
+        className='w-[180px] h-[180px] object-cover'
         alt=''
       />
       <div>

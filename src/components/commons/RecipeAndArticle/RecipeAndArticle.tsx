@@ -1,34 +1,52 @@
-import { ViewRecipesButton } from '~/components/elements/Button/Button'
-import healthyFood from '~/assets/images/healthy-food.png'
-import { Pagination } from '~/components/elements/Pagination/Pagination'
-import { useEffect, useState } from 'react'
-import { getAllRecipesWithPagination } from '~/services'
-import { ErrorResponse } from '~/commons/models'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { RecipeAndArticleCard } from './RecipeAndArticleCard'
+import { IPagination } from '~/commons/interfaces/IPagination'
 import { IRecipe } from '~/commons/interfaces/IRecipe'
+import { ErrorResponse } from '~/commons/models'
+import { ViewRecipesButton } from '~/components/elements/Button/Button'
+import Loading from '~/components/elements/Loading/Loading'
+import { Pagination } from '~/components/elements/Pagination/Pagination'
+import { useDebounce } from '~/hooks/useDebounce.hooks'
+import { getAllRecipesWithPagination } from '~/services'
+import { RecipeAndArticleCard } from './RecipeAndArticleCard'
 import { TastyRecipeCard } from './TastyRecipeCard'
+
+const _limit = 5
 
 export const RecipeAndArticle = () => {
   const [recipes, setRecipes] = useState<IRecipe[]>([])
+  const [isFetching, setIsFetching] = useState(true)
+  const [search, setSearch] = useState('')
+  const searchDebounce = useDebounce(search, 500)
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = 5
+  const [pagination, setPagination] = useState<IPagination>({ _limit, _page: 1, _totalRows: 0 })
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
+  const handlePageChange = (_page: number) => {
+    setPagination({ ...pagination, _page })
   }
+
+  const getRecipes = useCallback(async () => {
+    setIsFetching(true)
+    const response = await getAllRecipesWithPagination({ search: searchDebounce, _limit, _page: pagination._page })
+    if (response instanceof ErrorResponse) {
+      toast.error(response.error)
+    } else {
+      setRecipes(response.data)
+      console.log(response.pagination)
+      setPagination(response.pagination)
+    }
+    setIsFetching(false)
+  }, [pagination._page, searchDebounce])
 
   useEffect(() => {
     ;(async () => {
-      const response = await getAllRecipesWithPagination({})
-      if (response instanceof ErrorResponse) {
-        toast.error(response.error)
-      } else {
-        setRecipes(response.data)
-      }
+      await getRecipes()
     })()
-  }, [])
+  }, [getRecipes, searchDebounce])
+
+  const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+  }
 
   return (
     <div className='bg-gray-50 min-h-screen p-8'>
@@ -47,6 +65,7 @@ export const RecipeAndArticle = () => {
           <input
             type='email'
             placeholder='Search article, newss or recipe'
+            onChange={handleSearch}
             className='flex-grow px-4 py-2 text-sm outline-none rounded-l-full'
           />
           <ViewRecipesButton showIcon={false}>Search</ViewRecipesButton>
@@ -55,9 +74,13 @@ export const RecipeAndArticle = () => {
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           {/* Recipe Posts */}
           <div className='col-span-2 space-y-6'>
-            {recipes.map((recipe) => (
-              <RecipeAndArticleCard key={recipe.recipeId} recipe={recipe} />
-            ))}
+            {isFetching ? (
+              <div className='flex items-center justify-center h-[200px]'>
+                <Loading stroke={3} size={20} />
+              </div>
+            ) : (
+              recipes.map((recipe) => <RecipeAndArticleCard key={recipe.recipeId} recipe={recipe} />)
+            )}
           </div>
 
           {/* Sidebar */}
@@ -66,12 +89,12 @@ export const RecipeAndArticle = () => {
             <div>
               <h3 className='text-xl font-bold text-gray-800 mb-4'>Tasty Recipes</h3>
               {recipes.slice(0, 5).map((recipe) => (
-                <TastyRecipeCard recipe={recipe} />
+                <TastyRecipeCard key={recipe.recipeId} recipe={recipe} />
               ))}
             </div>
 
             {/* Reminder */}
-            <div className='absolute bg-green-400 w-[400px] h-[400px] rounded-lg text-center'>
+            {/* <div className='absolute bg-green-400 w-[400px] h-[400px] rounded-lg text-center'>
               <img
                 src={healthyFood}
                 alt='Healthy food reminder'
@@ -81,13 +104,19 @@ export const RecipeAndArticle = () => {
                 <p className='text-lg text-center font-bold text-white'>Don't forget to eat healthy food!</p>
                 <p className='text-sm text-white top-0'>www.foodiehub.com</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {/*Pagination*/}
-        <div className='flex justify-center mt-10'>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
+        {!isFetching && (
+          <div className='flex justify-center mt-10'>
+            <Pagination
+              currentPage={pagination._page}
+              totalPages={Math.ceil(pagination._totalRows / pagination._limit)}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

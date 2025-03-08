@@ -1,50 +1,66 @@
-# React + TypeScript + Vite
+# recipe-react
+Small CRUD project implement React, TailwindCSS, TS knowledge.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## OVERVIEW
 
-Currently, two official plugins are available:
+- This document provides the list of important technologies that would be used to implement, the objectives to be achieved and the progress of the project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TIMELINE:
 
-## Expanding the ESLint configuration
+- Feb 24th - March 9
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## TARGET:
 
-- Configure the top-level `parserOptions` property like this:
+- Understand and apply knowledge of React Typescript to build a website
+- Get familiar with React framework
+- Understand and more experience with React Typescript
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## TECHNICAL STACKS
+
+- HTML5/CSS3
+- Tailwind
+- Typescript
+- React
+- Vite
+- JSON-Server
+
+## Design: [here](https://www.figma.com/design/WBWrEDWLzJmd0ULoY6PxRc/Cooking-Template-%F0%9F%9F%A3-by-Flowbase.co-(Community)?node-id=1-296&p=f)
+
+## SOURCE CODE
+
+- Clone project : git clone
+
+## HOW TO RUN
+
+- Dillinger requires Node.js v18+ to run.
+- Install the dependencies and devDependencies and start the server.
+
+```sh
+cd react-practice
+rm -rf package-lock.json
+npm i
+npm run dev
+
+Home
+http://localhost:3000
+
 ```
+new terminal
+```sh
+cd react-practice
+npm run dev
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Open on web: http://localhost:3000
+Route: 
+    /auth/login
+    /auth/register
+    /admin/create-recipe
+    /admin/dashboard
+    /admin/recipe
+    /
+    /recipes
+    /recipe-details/[id]
+    /blog
+    /contact  
 ```
